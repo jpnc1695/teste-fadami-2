@@ -1,4 +1,5 @@
 import { TextField, Button, Typography, Box, Container, Paper } from "@mui/material";
+import Mensagem from '../../componentes/Mensagens'
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
@@ -14,6 +15,8 @@ const FormularioUsuario = () => {
   const [cpf, setCpf] = useState('')
   const [senha, setSenha] = useState('')
   const [confirmarSenha, setConfirmarSsenha] = useState('')
+  const [sucesso, setSucesso] = useState(false)
+  const [mensagem, setMensagem] = useState('')
 
   useEffect(() => {
     if (parametros.id) {
@@ -32,16 +35,19 @@ const FormularioUsuario = () => {
       http.put(`usuarios/${parametros.id}`, {
         nome: nome,
         cpf: parseFloat(cpf),
-        senha:senha
+        senha: senha
       })
         .then(() => {
+          setMensagem("Usuário atualizado com sucesso")
+          setSucesso(true)
           setNome('')
           setCpf('')
           setSenha('')
           setConfirmarSsenha('')
         })
         .catch(error => {
-          alert(error)
+          setMensagem("Erro na atualização do usuário")
+          setSucesso(false)
         })
     } else {
       http.post('/usuarios', {
@@ -49,12 +55,18 @@ const FormularioUsuario = () => {
         cpf: parseFloat(cpf),
         senha: senha
       })
-      .then(() => {
-        setNome('')
-        setCpf('')
-        setSenha('')
-        setConfirmarSsenha('')
-      })
+        .then(() => {
+          setMensagem("Usuário cadastrado com sucesso")
+          setSucesso(true)
+          setNome('')
+          setCpf('')
+          setSenha('')
+          setConfirmarSsenha('')
+        })
+        .catch(() => {
+          setMensagem("Erro no cadastro do usuário")
+          setSucesso(false)
+        })
     }
   }
 
@@ -125,6 +137,10 @@ const FormularioUsuario = () => {
           </Paper>
         </Container>
       </Box>
+      {
+
+        sucesso ? <Mensagem mensagem={mensagem} tipoMensagem="success" /> : ""
+      }
     </>
   )
 }
