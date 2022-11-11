@@ -30,7 +30,7 @@ const AdminUsuarios = () => {
           <TableHead>
             <TableRow>
               <TableCell>
-                Usuario
+                Usuário
               </TableCell>
               <TableCell>
                 Cpf
