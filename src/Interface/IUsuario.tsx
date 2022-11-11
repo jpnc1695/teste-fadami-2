@@ -1,6 +1,7 @@
 
 export default interface IUsuario {
-  id:number
+  _id:string
   nome:string
   cpf:number
+  senha:string
 }
