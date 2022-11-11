@@ -49,7 +49,7 @@ const AdminUsuarios = () => {
                 <TableCell> {usuario.nome} </TableCell>
                 <TableCell> {usuario.cpf} </TableCell>
                 <TableCell>
-                  <Button variant='contained'> 
+                  <Button href={`/usuarios/${usuario._id}`} variant='contained'> 
                       Editar 
                   </Button>
                 </TableCell>
